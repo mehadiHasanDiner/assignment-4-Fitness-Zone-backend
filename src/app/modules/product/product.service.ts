@@ -1,3 +1,4 @@
+import builderQuery from "../../builder/builderQuery";
 import { TProduct } from "./product.interface";
 import { ProductModel } from "./product.model";
 
@@ -6,8 +7,14 @@ const createProductIntoDB = async (payload: TProduct) => {
   return result;
 };
 
-const getAllProductsFromDB = async () => {
-  const result = await ProductModel.find();
+const getAllProductsFromDB = async (query: Record<string, unknown>) => {
+  // const result = await ProductModel.find();
+  const searchAbleFields = ["name", "category"];
+  const result = await builderQuery(
+    ProductModel.find(),
+    query,
+    searchAbleFields
+  );
   return result;
 };
 
