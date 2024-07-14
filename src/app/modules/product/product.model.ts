@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
 import { TProduct } from "./product.interface";
 
-const productSchema = new Schema<TProduct>({
+export const productSchema = new Schema<TProduct>({
   name: {
     type: String,
     required: true,
@@ -28,7 +28,6 @@ const productSchema = new Schema<TProduct>({
     required: true,
   },
   quantity: { type: Number },
-  _id: { type: String },
 });
 
 export const ProductModel = model<TProduct>("Product", productSchema);

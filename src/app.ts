@@ -1,12 +1,12 @@
 import express, { Request, Response } from "express";
-import { ProductRoutes } from "./app/modules/product/product.route";
+import { routes } from "./app/routes";
 
 const app = express();
 
 // parsers
-app.use(express.json())
+app.use(express.json());
 
-app.use("/api/products", ProductRoutes);
+app.use("/api", routes);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello World, ");

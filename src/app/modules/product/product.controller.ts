@@ -1,34 +1,71 @@
-import { Request, Response } from "express";
 import { ProductServices } from "./product.service";
+import sendResponse from "../../utils/sendResponse";
+import catchAsync from "../../utils/catchAsync";
 
-const createProduct = async (req: Request, res: Response) => {
+const createProduct = catchAsync(async (req, res) => {
   const productData = req.body;
   const result = await ProductServices.createProductIntoDB(productData);
-  res.json({
+  sendResponse(res, {
+    statusCode: 200,
     success: true,
     message: "Product has been created successfully",
     data: result,
   });
-};
+});
 
-const getAllProduct = async (req: Request, res: Response) => {
-  try {
-    const result = await ProductServices.getAllProductsFromDB();
-    res.status(200).json({
-      success: true,
-      message: "Products are fetched successfully",
-      data: result,
-    });
-  } catch (err: any) {
-    res.status(500).json({
-      success: false,
-      message: "Could not found products",
-      error: err,
-    });
-  }
-};
+const getAllProducts = catchAsync(async (req, res) => {
+  const result = await ProductServices.getAllProductsFromDB();
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "Products are fetched successfully",
+    data: result,
+  });
+});
+
+const getSingleProduct = catchAsync(async (req, res) => {
+  const { productId } = req.params;
+  const result = await ProductServices.getSingleProductFromDB(productId);
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "Product retrieved successfully!",
+    data: result,
+  });
+});
+
+const updateProduct = catchAsync(async (req, res) => {
+  const { productId } = req.params;
+  const product = req.body;
+  Object.keys(product).forEach((key) => {
+    if (product[key] === null || product[key] === "") {
+      delete product[key];
+    }
+  });
+  const result = await ProductServices.updateProductIntoDB(productId, product);
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "Product has been updated successfully",
+    data: result,
+  });
+});
+
+const deleteProduct = catchAsync(async (req, res) => {
+  const { productId } = req.params;
+  const result = await ProductServices.deleteProductFromDB(productId);
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "Product has been deleted successfully",
+    data: result,
+  });
+});
 
 export const ProductControllers = {
   createProduct,
-  getAllProduct,
+  getAllProducts,
+  getSingleProduct,
+  updateProduct,
+  deleteProduct,
 };
