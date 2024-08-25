@@ -17,7 +17,7 @@ const test = (req: Request, res: Response) => {
 app.get("/", test);
 
 // application route
-app.use("/api", routes);
+app.use("/api/v1", routes);
 
 // global error handler
 app.use(globalErrorHandler);
