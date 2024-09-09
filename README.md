@@ -1,6 +1,6 @@
 
 
-# assignment-4-Fitness-Zone-backend - APIs for Backend Application
+# assignment-4-GYM Shop-backend - APIs for Backend Application
 
 ## Requirements that need for this application
 
@@ -21,7 +21,7 @@ Before starting, please ensure that you fulfill the following prerequisites:
 
    ```bash
    git clone <repository-url>
-   cd assignment-4-Fitness-Zone-backend
+   cd assignment-4-GYM Shop-backend
    npm install
    ```
 
