@@ -1,6 +1,7 @@
 import { ProductServices } from "./product.service";
 import sendResponse from "../../utils/sendResponse";
 import catchAsync from "../../utils/catchAsync";
+import { query } from "express";
 
 const createProduct = catchAsync(async (req, res) => {
   const productData = req.body;
@@ -14,7 +15,8 @@ const createProduct = catchAsync(async (req, res) => {
 });
 
 const getAllProducts = catchAsync(async (req, res) => {
-  const result = await ProductServices.getAllProductsFromDB();
+  const query = req.query;
+  const result = await ProductServices.getAllProductsFromDB(query);
   sendResponse(res, {
     statusCode: 200,
     success: true,
